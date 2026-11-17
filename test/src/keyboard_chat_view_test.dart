@@ -592,6 +592,40 @@ void main() {
         expect(chat.rectOf('prompt').top, 0);
       });
 
+      testWidgets('should stop a fling at the oldest message with bouncing physics', (
+        tester,
+      ) async {
+        final chat = ChatHarness(tester)..messages = <TestMessage>[];
+        await chat.pump(liftBehavior: KeyboardLiftBehavior.whenAtEnd);
+        await chat.setKeyboard(keyboardHeight);
+        await chat.update(() => chat.messages.insert(0, TestMessage('prompt')));
+        chat.controller.pinToTop('prompt');
+        await chat.update(() => chat.messages.insert(0, TestMessage('answer', 1000)));
+
+        await tester.fling(find.byKey(listKey), const Offset(0, 2000), 3000);
+        await tester.pumpAndSettle();
+
+        expect(chat.rectOf('prompt').top, 0);
+      }, variant: TargetPlatformVariant.only(TargetPlatform.iOS));
+
+      testWidgets('should fling to the oldest message across a short scroll range', (tester) async {
+        const overflow = 10.0;
+        final chat = ChatHarness(tester)..messages = <TestMessage>[];
+        await chat.pump(liftBehavior: KeyboardLiftBehavior.whenAtEnd);
+        await chat.setKeyboard(keyboardHeight);
+        await chat.update(() => chat.messages.insert(0, TestMessage('prompt')));
+        chat.controller.pinToTop('prompt');
+        await chat.update(() => chat.messages.insert(0, TestMessage('answer', 20)));
+        final visible = chat.listBottom - keyboardHeight;
+        await chat.update(() => chat.messages.first.height = visible - itemHeight + overflow);
+        expect(chat.rectOf('prompt').top, -overflow);
+
+        await tester.fling(find.byKey(listKey), const Offset(0, 2000), 3000);
+        await tester.pumpAndSettle();
+
+        expect(chat.rectOf('prompt').top, 0);
+      }, variant: TargetPlatformVariant.only(TargetPlatform.iOS));
+
       testWidgets('should not apply a keyboard lift that changed no extents later', (tester) async {
         final chat = ChatHarness(tester);
         await chat.pump(liftBehavior: KeyboardLiftBehavior.always);
