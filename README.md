@@ -1,6 +1,20 @@
 # keyboard_controller
 
-Native-feeling keyboard behaviour for Flutter chat screens on iOS and Android.
+iOS-style interactive keyboard dismiss for Flutter, on iOS **and Android**: swipe the chat down
+and the keyboard follows your finger. Plus a chat list that stays put while the keyboard moves,
+a composer that rides the keyboard, and AI chat behaviours. It is the Flutter counterpart of
+react-native-keyboard-controller, and goes beyond `keyboardDismissBehavior: onDrag`, which only
+starts a dismiss animation.
+
+| iOS: AI chat, pinned prompt, swipe to dismiss | Android: messenger, swipe to dismiss |
+| --- | --- |
+| ![The sent prompt stays at the top while the answer streams, then the keyboard is swiped down with the input bar riding on it](https://raw.githubusercontent.com/ArefMozafari/keyboard_controller/main/media/ios_ai_chat.gif) | ![The keyboard follows the finger down with the input bar on top, hides, and opens again](https://raw.githubusercontent.com/ArefMozafari/keyboard_controller/main/media/android_messenger.gif) |
+
+```sh
+flutter pub add keyboard_controller
+```
+
+## Features
 
 - **Interactive dismiss.** Drag the message list down and the keyboard follows the finger once
   it reaches the keyboard's top edge. Let go low and it hides; let go high and it springs back.

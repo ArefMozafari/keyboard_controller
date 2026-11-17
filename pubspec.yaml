@@ -8,9 +8,18 @@ issue_tracker: https://github.com/ArefMozafari/keyboard_controller/issues
 topics:
   - keyboard
   - chat
-  - ui
-  - widget
-  - animation
+  - scroll
+  - gestures
+  - llm
+screenshots:
+  - description: >-
+      iOS AI chat: the sent prompt stays at the top while the answer streams, then the keyboard
+      is swiped away with the input bar riding on it.
+    path: media/ios_ai_chat.gif
+  - description: >-
+      Android messenger: the keyboard follows the finger down with the input bar on top, hides,
+      and opens again.
+    path: media/android_messenger.gif
 
 environment:
   sdk: ^3.7.0
