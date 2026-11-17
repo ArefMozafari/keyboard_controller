@@ -13,6 +13,8 @@ class ExampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'keyboard_controller',
+      // The demo is recorded for the README; the debug ribbon would cover the app bar action.
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(colorSchemeSeed: Colors.indigo),
       // One scope above the navigator serves every chat route.
       builder: (context, child) => KeyboardScope(child: child!),
