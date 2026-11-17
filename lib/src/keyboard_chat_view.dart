@@ -402,7 +402,9 @@ class _KeyboardChatViewState extends State<KeyboardChatView> {
               enabled: widget.interactiveDismiss,
               child: NotificationListener<ScrollStartNotification>(
                 onNotification: _handleScrollStart,
-                child: list,
+                // The composer rests above the bottom safe area, so messages scrolling behind it
+                // would show through that strip.
+                child: ClipRect(clipper: _BottomInsetClipper(inset: safeBottom), child: list),
               ),
             ),
           ),
@@ -453,6 +455,19 @@ class _RenderHeightReporter extends RenderProxyBox {
       if (attached) onHeight(height);
     });
   }
+}
+
+/// Clips its child above a strip of [inset] height at the bottom.
+class _BottomInsetClipper extends CustomClipper<Rect> {
+  const _BottomInsetClipper({required this.inset});
+
+  final double inset;
+
+  @override
+  Rect getClip(Size size) => Rect.fromLTRB(0, 0, size.width, size.height - inset);
+
+  @override
+  bool shouldReclip(_BottomInsetClipper oldClipper) => oldClipper.inset != inset;
 }
 
 /// Records how tall the history above the center is, so scrolling can stop at the oldest message.

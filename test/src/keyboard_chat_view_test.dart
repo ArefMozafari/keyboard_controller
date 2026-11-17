@@ -1,3 +1,4 @@
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -483,6 +484,26 @@ void main() {
         await chat.pump();
 
         expect(chat.rectOf('m0').bottom, chat.listBottom - safeBottom);
+      });
+
+      testWidgets('should not paint messages in the bottom safe area below the composer', (
+        tester,
+      ) async {
+        const safeBottom = 34.0;
+        tester.view.viewPadding = FakeViewPadding(
+          bottom: safeBottom * tester.view.devicePixelRatio,
+        );
+        addTearDown(tester.view.resetViewPadding);
+        final chat = ChatHarness(tester);
+        await chat.pump();
+        await chat.scrollUp(200);
+
+        final clip = tester.renderObject<RenderClipRect>(
+          find.ancestor(of: find.byType(CustomScrollView), matching: find.byType(ClipRect)).first,
+        );
+        final visible = clip.clipper!.getClip(clip.size);
+
+        expect(visible.bottom, chat.screenHeight - safeBottom);
       });
 
       testWidgets('should move the list up when the composer grows', (tester) async {
