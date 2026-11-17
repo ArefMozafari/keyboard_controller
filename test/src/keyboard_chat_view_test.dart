@@ -537,6 +537,36 @@ void main() {
         expect(chat.rectOf('answer').top, itemHeight);
       });
 
+      testWidgets(
+        'should keep the prompt still while the answer streams under a half-dragged keyboard',
+        (tester) async {
+          final chat = ChatHarness(tester);
+          await chat.pump(liftBehavior: KeyboardLiftBehavior.whenAtEnd);
+          await chat.setKeyboard(keyboardHeight);
+          await chat.update(() => chat.messages.insert(0, TestMessage('prompt')));
+          chat.controller.pinToTop('prompt');
+          await chat.update(() => chat.messages.insert(0, TestMessage('answer', 20)));
+          expect(chat.rectOf('prompt').top, 0);
+
+          final drag = await tester.startGesture(const Offset(100, 100));
+          chat.keyboard.gestureHeld = true;
+          await drag.moveBy(const Offset(0, keyboardHeight / 2));
+          await chat.setKeyboard(keyboardHeight / 2);
+          for (var token = 1; token <= 5; token++) {
+            await chat.update(() => chat.messages.first.height = 20.0 + token * 20);
+
+            expect(chat.rectOf('prompt').top, 0);
+            expect(chat.rectOf('answer').top, itemHeight);
+          }
+          await drag.up();
+          chat.keyboard.gestureHeld = false;
+          await tester.pumpAndSettle();
+
+          expect(chat.rectOf('prompt').top, 0);
+          expect(chat.rectOf('answer').top, itemHeight);
+        },
+      );
+
       testWidgets('should end at the answer once it fills the viewport', (tester) async {
         final chat = ChatHarness(tester);
         await chat.pump();
