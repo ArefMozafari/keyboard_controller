@@ -1,4 +1,4 @@
-group = "dev.keyboardcontroller.keyboard_controller"
+group = "io.github.arefmozafari.keyboard_controller"
 version = "1.0-SNAPSHOT"
 
 buildscript {
@@ -26,7 +26,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.keyboardcontroller.keyboard_controller"
+    namespace = "io.github.arefmozafari.keyboard_controller"
 
     compileSdk = 36
 

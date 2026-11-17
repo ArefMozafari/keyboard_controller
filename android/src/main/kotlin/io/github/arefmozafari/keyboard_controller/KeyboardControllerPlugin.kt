@@ -1,4 +1,4 @@
-package dev.keyboardcontroller.keyboard_controller
+package io.github.arefmozafari.keyboard_controller
 
 import android.app.Activity
 import android.graphics.Insets

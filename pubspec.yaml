@@ -22,7 +22,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: dev.keyboardcontroller.keyboard_controller
+        package: io.github.arefmozafari.keyboard_controller
         pluginClass: KeyboardControllerPlugin
       ios:
         pluginClass: KeyboardControllerPlugin
