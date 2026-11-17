@@ -1,0 +1,28 @@
+name: keyboard_controller
+description: >-
+  Interactive keyboard dismiss, a keyboard-stable chat list, a composer that rides the keyboard,
+  and AI chat behaviours (streaming follow, pin the sent prompt to the top) for iOS and Android.
+version: 0.1.0
+homepage:
+
+environment:
+  sdk: ^3.7.0
+  flutter: '>=3.29.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: dev.keyboardcontroller.keyboard_controller
+        pluginClass: KeyboardControllerPlugin
+      ios:
+        pluginClass: KeyboardControllerPlugin
