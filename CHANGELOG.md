@@ -1,3 +1,8 @@
+## 0.1.1
+
+- `KeyboardChatView` no longer shows messages through the bottom safe area below the composer
+  (the gesture bar or home indicator strip) while the list is scrolled.
+
 ## 0.1.0
 
 - `KeyboardChatView`: reversed chat list with a composer that rides the keyboard, interactive

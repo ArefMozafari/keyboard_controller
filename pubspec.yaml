@@ -2,7 +2,7 @@ name: keyboard_controller
 description: >-
   iOS-style interactive keyboard dismiss, a keyboard-stable chat list, a composer that rides the
   keyboard, and AI chat behaviours for Flutter on iOS and Android.
-version: 0.1.0
+version: 0.1.1
 repository: https://github.com/ArefMozafari/keyboard_controller
 issue_tracker: https://github.com/ArefMozafari/keyboard_controller/issues
 topics:
